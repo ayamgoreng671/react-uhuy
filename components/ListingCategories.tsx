@@ -1,53 +1,34 @@
-import {
-    FlatList,
-    Image,
-    ListRenderItem,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-  } from "react-native";
-  import React, { useEffect, useState } from "react";
-//   import { ListingType } from "@/types/listingType";
-  import {Colors} from "@/constants/Colors";
-  import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-  import { Link } from "expo-router";
-  
+import { ListRenderItem, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Colors } from '@/constants/Colors';
+import { Link } from 'expo-router';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
-  interface Place {
-    id: number;
-    name: string;
-    slug: string;
-    photo: string;
-    description: string;
-    category: Category;
-  }
-  
-  interface Category {
+interface Category {
     id: number;
     name: string;
     slug: string;
   }
-
   type Props = {
     listings: any[];
   };
-  
-  const Listings = ({ listings }: Props) => {
+
+const ListingCategories = ({ listings }: Props) => {
     const [loading, setLoading] = useState(false);
   
-    // useEffect(() => {
-    //   console.log('Update Listing');
-    //   setLoading(true);
+    useEffect(() => {
+      console.log('Update Listing');
+      setLoading(true);
   
-    //   setTimeout(() => {
-    //     setLoading(false)
-    //   }, 200);
-    // },);
+      setTimeout(() => {
+        setLoading(false)
+      }, 200);
+    },);
   
-    const renderItems: ListRenderItem<Place> = ({ item }) => {
+    const renderItems: ListRenderItem<Category> = ({ item }) => {
       return (
-        <Link href={`/listing/${item.id}`} asChild>
+        <Link href={`/category/${item.id}`} asChild>
           <TouchableOpacity>
             <View style={styles.item}>
               {/* <Image source={{ uri: item.image }} style={styles.image} /> */}
@@ -92,7 +73,7 @@ import {
     );
   };
   
-  export default Listings;
+  export default ListingCategories;
   
   const styles = StyleSheet.create({
     item: {
@@ -134,4 +115,3 @@ import {
       color: Colors.primaryColor,
     },
   });
-  
