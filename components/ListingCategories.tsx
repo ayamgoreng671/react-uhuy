@@ -17,14 +17,14 @@ interface Category {
 const ListingCategories = ({ listings }: Props) => {
     const [loading, setLoading] = useState(false);
   
-    useEffect(() => {
-      console.log('Update Listing');
-      setLoading(true);
+    // useEffect(() => {
+    //   console.log('Update Listing');
+    //   setLoading(true);
   
-      setTimeout(() => {
-        setLoading(false)
-      }, 200);
-    },);
+    //   setTimeout(() => {
+    //     setLoading(false)
+    //   }, 200);
+    // },);
   
     const renderItems: ListRenderItem<Category> = ({ item }) => {
       return (
