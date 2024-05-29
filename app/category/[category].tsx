@@ -21,6 +21,8 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset,
 } from "react-native-reanimated";
+import { Link } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 const IMG_HEIGHT = 300;
@@ -46,6 +48,7 @@ const CategoryDetails = () => {
       setPlaces(placesArray);
     } catch (error) {
       console.error("Error fetching places:", error);
+      console.error("Error fetching categories:", error);
       setError(error);
     } finally {
       setIsLoading(false);
@@ -143,27 +146,84 @@ const CategoryDetails = () => {
         }}
       />
       <View style={styles.container}>
-        <Animated.ScrollView
-          ref={scrollRef}
-          contentContainerStyle={{ paddingBottom: 150 }}
-        >
-          {isLoading ? (
-            <Text>Loading...</Text>
-          ) : (
-            places.map((place, index) =>
-              place.category.id == category ? (
-                <View key={index} style={styles.contentWrapper}>
-                  <Image style={styles.imageStyle} source={{ uri: place.photo }}/>
-                  <Text style={styles.listingName}>{place.name}</Text>
-                  <Text style={styles.listingDetails}>
-                    {place.description}
-                  </Text>
-                </View>
-              ) : null
-            )
-          )}
-        </Animated.ScrollView>
-      </View>
+          <Animated.ScrollView
+            ref={scrollRef}
+            contentContainerStyle={{ paddingBottom: 150 }}
+          >
+            {/* <Animated.Image
+              source={{ uri: listing.image }}
+              style={[styles.image, imageAnimatedStyle]}
+            /> */}
+  
+            {isLoading ? (
+              <>
+                <Text>Loading...</Text>
+              </>
+            ) : (
+              places.map((place, index) =>
+                place.category.id == category ? (
+                  <>
+                    <View key={index} style={styles.contentWrapper}>
+                      <Image style={styles.imageStyle} source={{ uri: place.photo }}/>
+                      <Text style={styles.listingName}>{place.name}</Text>
+                      <View style={styles.highlightWrapper}>
+                        <View style={{ flexDirection: "row" }}>
+                          <View style={styles.highlightIcon}>
+                            <Ionicons
+                              name="time"
+                              size={18}
+                              color={Colors.primaryColor}
+                            />
+                          </View>
+                          <View>
+                            <Text style={styles.highlightTxt}>25 Jam</Text>
+                            {/* <Text style={styles.highlightTxtVal}>
+                      {listing.duration} Days
+                    </Text> */}
+                          </View>
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <View style={styles.highlightIcon}>
+                            <FontAwesome
+                              name="users"
+                              size={18}
+                              color={Colors.primaryColor}
+                            />
+                          </View>
+                          <View>
+                            <Text style={styles.highlightTxt}>2.7K</Text>
+                            {/* <Text style={styles.highlightTxtVal}>{listing.duration}</Text> */}
+                          </View>
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <View style={styles.highlightIcon}>
+                            <Ionicons
+                              name="star"
+                              size={18}
+                              color={Colors.primaryColor}
+                            />
+                          </View>
+                          <View>
+                            <Text style={styles.highlightTxt}>9,7</Text>
+                            {/* <Text style={styles.highlightTxtVal}>{listing.rating}</Text> */}
+                          </View>
+                        </View>
+                      </View>
+  
+                      <Text style={styles.listingDetails}>
+                        {place.description}
+                      </Text>
+                      <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between", marginHorizontal: 50,}}>
+                        <Image style={{display: "flex", height: 100,}} source={require('@/assets/images/line.png')}/>
+                        <Image style={{display: "flex", height: 100,}} source={require('@/assets/images/line.png')}/>
+                      </View>
+                    </View>
+                  </>
+                ) : null
+              )
+            )}
+          </Animated.ScrollView>
+        </View>
     </>
   );
 };
@@ -186,7 +246,7 @@ const styles = StyleSheet.create({
   listingName: {
     marginVertical: 10,
     fontSize: 24,
-    fontWeight: "500",
+    fontWeight: "700",
     color: Colors.black,
     letterSpacing: 0.5,
     textAlign: 'left',
@@ -200,7 +260,57 @@ const styles = StyleSheet.create({
   imageStyle: {
     width:"100%",
     height: 200, 
+    marginBottom: 15,
     borderRadius:20,
     elevation: 15,
+  },
+  contentWrapper: {
+    padding: 20,
+    backgroundColor: Colors.white,
+  },
+  listingName: {
+    fontSize: 24,
+    fontWeight: "500",
+    color: Colors.black,
+    letterSpacing: 0.5,
+  },
+  listingLocationWrapper: {
+    flexDirection: "row",
+    marginTop: 5,
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  listingLocationTxt: {
+    fontSize: 16,
+    marginLeft: 5,
+    color: Colors.black,
+  },
+  highlightWrapper: {
+    flexDirection: "row",
+    marginVertical: 20,
+    justifyContent: "flex-start",
+    columnGap: 15,
+  },
+  highlightIcon: {
+    backgroundColor: "#F4F4F4",
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 8,
+    marginRight: 5,
+    alignItems: "center",
+  },
+  highlightTxt: {
+    fontSize: 12,
+    color: "black",
+  },
+  highlightTxtVal: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  listingDetails: {
+    fontSize: 16,
+    color: Colors.black,
+    lineHeight: 25,
+    letterSpacing: 0.5,
   },
 });

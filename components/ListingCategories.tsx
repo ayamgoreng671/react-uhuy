@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Colors } from '@/constants/Colors';
 import { Link } from 'expo-router';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 interface Category {
     id: number;
@@ -48,23 +48,25 @@ const ListingCategories = ({ listings }: Props) => {
   
   const styles = StyleSheet.create({
     item: {
-      display: "flex",
-      marginHorizontal: 5,
-      padding: 7,
+      marginVertical: 10,
+      padding: 10,
       borderWidth: 2,
       borderColor: "#ff7f36",
       borderRadius: 10,
       backgroundColor: "#ff7f36",
+      elevation: 5,
+      marginRight: 10,
     },
     image: {
-      width: 200,
-      height: 200,
+      width: 100,
+      height: 100,
       borderRadius: 10,
       marginBottom: 30,
+      marginTop: 5,
     },
     itemTxt: {
       fontSize: 16,
       fontWeight: "600",
-      color: "white",
+      color: Colors.white,
     },
   });

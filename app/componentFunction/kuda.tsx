@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Listings from '@/components/Listings'
 
 const Kuda = () => {
-
     const [places, setPlaces] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);

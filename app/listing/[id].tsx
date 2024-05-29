@@ -102,25 +102,28 @@ const ListingDetails = () => {
     <>
       <Stack.Screen
         options={{
-          headerTransparent: true,
-          headerTitle: "",
+          headerTransparent: false,
+          headerTitle: "Details",
+          headerTitleAlign: 'center',
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => router.back()}
               style={{
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                backgroundColor: "#ff7f36",
                 borderRadius: 10,
-                padding: 4,
+                padding: 2,
+                borderWidth: 2,
+                borderColor: "#ff7f36",
               }}
             >
               <View
                 style={{
-                  backgroundColor: Colors.white,
+                  backgroundColor: "#ff7f36",
                   padding: 6,
                   borderRadius: 10,
                 }}
               >
-                <Feather name="arrow-left" size={20} />
+                <Feather name="arrow-left" size={20} color={'white'} />
               </View>
             </TouchableOpacity>
           ),
@@ -165,16 +168,8 @@ const ListingDetails = () => {
               place.id == id ? (
                 <>
                   <View key={index} style={styles.contentWrapper}>
+                    <Image style={styles.imageStyle} source={{ uri: place.photo }}/>
                     <Text style={styles.listingName}>{place.name}</Text>
-                    <View style={styles.listingLocationWrapper}>
-                      <FontAwesome5
-                        name="map-marker-alt"
-                        size={18}
-                        color={Colors.primaryColor}
-                      />
-                      {/* <Text style={styles.listingLocationTxt}>{listing.location}</Text> */}
-                    </View>
-
                     <View style={styles.highlightWrapper}>
                       <View style={{ flexDirection: "row" }}>
                         <View style={styles.highlightIcon}>
@@ -185,7 +180,7 @@ const ListingDetails = () => {
                           />
                         </View>
                         <View>
-                          <Text style={styles.highlightTxt}>Duration</Text>
+                          <Text style={styles.highlightTxt}>24 jam</Text>
                           {/* <Text style={styles.highlightTxtVal}>
                     {listing.duration} Days
                   </Text> */}
@@ -200,7 +195,7 @@ const ListingDetails = () => {
                           />
                         </View>
                         <View>
-                          <Text style={styles.highlightTxt}>Person</Text>
+                          <Text style={styles.highlightTxt}>1,5RB</Text>
                           {/* <Text style={styles.highlightTxtVal}>{listing.duration}</Text> */}
                         </View>
                       </View>
@@ -213,12 +208,11 @@ const ListingDetails = () => {
                           />
                         </View>
                         <View>
-                          <Text style={styles.highlightTxt}>Rating</Text>
+                          <Text style={styles.highlightTxt}>9.7</Text>
                           {/* <Text style={styles.highlightTxtVal}>{listing.rating}</Text> */}
                         </View>
                       </View>
                     </View>
-
                     <Text style={styles.listingDetails}>
                       {place.description}
                     </Text>
@@ -229,18 +223,6 @@ const ListingDetails = () => {
           )}
         </Animated.ScrollView>
       </View>
-
-      <Animated.View style={styles.footer} entering={SlideInDown.delay(200)}>
-        <TouchableOpacity
-          onPress={() => {}}
-          style={[styles.footerBtn, styles.footerBookBtn]}
-        >
-          <Text style={styles.footerBtnTxt}>Book Now</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}} style={styles.footerBtn}>
-          {/* <Text style={styles.footerBtnTxt}>${listing.price}</Text> */}
-        </TouchableOpacity>
-      </Animated.View>
     </>
   );
 };
@@ -280,9 +262,11 @@ const styles = StyleSheet.create({
   highlightWrapper: {
     flexDirection: "row",
     marginVertical: 20,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    columnGap: 15,
   },
   highlightIcon: {
+    elevation: 15,
     backgroundColor: "#F4F4F4",
     paddingHorizontal: 8,
     paddingVertical: 5,
@@ -292,7 +276,7 @@ const styles = StyleSheet.create({
   },
   highlightTxt: {
     fontSize: 12,
-    color: "#999",
+    color: "black",
   },
   highlightTxtVal: {
     fontSize: 14,
@@ -329,5 +313,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     textTransform: "uppercase",
+  },
+  imageStyle: {
+    marginVertical: 10,
+    width:"100%",
+    height: 200, 
+    borderRadius:15,
   },
 });
