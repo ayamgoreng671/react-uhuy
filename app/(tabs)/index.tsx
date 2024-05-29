@@ -1,9 +1,9 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
+import React from 'react';
+import { Image, StyleSheet, TextInput, View, Text, ScrollView } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import Banteng from './banteng';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Kuda from './kuda';
 
 export default function HomeScreen() {
   return (
@@ -11,41 +11,25 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          style={styles.bannerLogo}
+          source={require('@/assets/images/banner.png')}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+      }
+    >
+      <View style={styles.titleContainer}>
+        <TextInput
+          style={styles.textInput}
+          placeholder='Search here...'
+        />
+      </View>
+      <ScrollView horizontal style={styles.category}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Banteng />
+      </GestureHandlerRootView>
+      </ScrollView>
+      <ScrollView>
+        <Kuda/>
+      </ScrollView>
     </ParallaxScrollView>
   );
 }
@@ -54,17 +38,54 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 5,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
+  bannerLogo: {
+    height: 250,
+    width: 360,
     bottom: 0,
-    left: 0,
+    right: 0,
     position: 'absolute',
   },
+  textInput: {
+    borderWidth: 3,
+    borderColor: "#ff7f36",
+    paddingVertical: 7,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    borderRadius: 20,
+    width: "100%",
+  },
+  category: {
+    display: "flex",
+    flexDirection: "row",
+    marginVertical: 5,
+  },
+  itemAPI: {
+    display: "flex",
+    marginHorizontal: 5,
+    padding: 5,
+    borderWidth: 2,
+    borderColor: "#ff7f36",
+    borderRadius: 10,
+    backgroundColor: "#ff7f36",
+  },
+  item: {
+    color: 'white',
+    fontWeight: "500",
+  },
+  places: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "start",
+    marginVertical: 5,
+  },
+  itemPlaces: {
+    borderWidth: 2,
+    marginBottom: 30,
+    paddingBottom: 5,
+    borderRadius: 15,
+    borderColor: "white",
+    elevation: 5,
+  }
 });

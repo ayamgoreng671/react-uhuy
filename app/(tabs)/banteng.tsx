@@ -1,20 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import ListingCategories from "@/components/ListingCategories";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import ListingCategories from '@/components/ListingCategories';
+import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 
 const Banteng = () => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const getCategories = async () => {
     try {
       const response = await fetch("https://dewalaravel.com/api/categories");
       const categoriesData = await response.json();
-      // Check if data is an array, otherwise access it from a property
-      const categoriesArray = Array.isArray(categoriesData)
-        ? categoriesData
-        : categoriesData.data;
+      const categoriesArray = Array.isArray(categoriesData) ? categoriesData : categoriesData.data;
       setCategories(categoriesArray);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -23,13 +21,23 @@ const Banteng = () => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     getCategories();
   }, []);
+
   return (
-    <View>
-      <ListingCategories listings={categories}  />
-    </View>
+    <NativeViewGestureHandler>
+      <View>
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : error ? (
+          <Text>Error: {error.message}</Text>
+        ) : (
+          <ListingCategories listings={categories} />
+        )}
+      </View>
+    </NativeViewGestureHandler>
   );
 };
 

@@ -91,34 +91,8 @@ const Bebek = () => {
         ) : (
           places.map((place, index) => (
             <View key={index}>
-              <div className="container">
-                <div className="row row-gap-3">
-                  <div className="col-md-12">
-                    <div className="card">
-                      <div className="card-body">
-                        <h3 className="card-title">{place.name}</h3>
-                        <p className="card-text">{place.name}</p>
-                        <a href="#" className="btn btn-primary">
-                          Go somewhere
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a>
-              </div>
-            </div> */}
-              {/* <Text>{place.category.name}</Text> */}
+              <Text>{place.name}</Text>
+              <Text>{place.slug}</Text>
             </View>
           ))
         )}
